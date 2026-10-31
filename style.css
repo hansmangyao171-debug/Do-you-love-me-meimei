@@ -1,0 +1,220 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffb6c1, #ff69b4, #ff1493);
+}
+
+.container {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 500px;
+    padding: 50px 25px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 30px;
+    box-shadow: 0 15px 50px rgba(150, 0, 70, 0.2);
+}
+
+.heart-icon {
+    font-size: 75px;
+    margin-bottom: 15px;
+    animation: heartbeat 1.2s infinite;
+}
+
+h1 {
+    color: #ff1493;
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+p {
+    color: #777;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    min-height: 100px;
+    position: relative;
+}
+
+button {
+    position: relative;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    touch-action: manipulation;
+}
+
+#yesBtn {
+     background: #ff1493;
+    color: white;
+    position: relative;
+    z-index: 10;
+    transform-origin: center;
+}
+
+#noBtn {
+    
+    background: #eee;
+    color: #555;
+    position: relative;
+    z-index: 1;
+}
+
+button:hover {
+    filter: brightness(1.08);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.love-message {
+    color: #ff1493;
+    font-weight: bold;
+}
+
+.hearts-container {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    bottom: -40px;
+    animation: floatUp 6s linear forwards;
+    opacity: 0.7;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* RUNAWAY NO BUTTON ANIMATIONS */
+
+#noBtn {
+    background: #eee;
+    color: #555;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.2);
+    transition:
+        left 0.45s cubic-bezier(0.2, 1.5, 0.5, 1),
+        top 0.45s cubic-bezier(0.2, 1.5, 0.5, 1),
+        transform 0.35s ease,
+        box-shadow 0.3s ease;
+}
+
+#noBtn.running {
+    animation: panic 0.45s ease;
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.7);
+}
+
+@keyframes panic {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    30% {
+        transform: scale(1.2) rotate(-12deg);
+    }
+    60% {
+        transform: scale(0.85) rotate(12deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* CONFETTI CELEBRATION */
+.confetti {
+    position: fixed;
+    top: -20px;
+    width: 10px;
+    height: 15px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        opacity: 1;
+        transform: translate3d(0, -10px, 0) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(var(--drift), 110vh, 0)
+                   rotate(720deg);
+    }
+}
+
+/* SUCCESS SCREEN POP */
+#success-screen:not(.hidden) {
+    animation: celebrationPop 0.8s cubic-bezier(.17,.67,.35,1.4) both;
+}
+
+@keyframes celebrationPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.12);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* CELEBRATION HEART */
+#success-screen .heart-icon {
+    animation: celebrationHeart 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes celebrationHeart {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.3) rotate(8deg);
+    }
+}
